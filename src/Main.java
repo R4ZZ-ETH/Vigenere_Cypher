@@ -6,7 +6,7 @@ public class Main {
         System.out.println("Input the message:");
         String message = input.nextLine();
         System.out.println("Encrypt or decrypt?");
-        Cypher cypher = new Cypher("3591255939063529", "NCajwAdDdcDCakcC");
+        Cypher cypher = new Cypher("3591255939063529");
         int scelta = input.nextInt();
         switch(scelta){
             case 1:               
