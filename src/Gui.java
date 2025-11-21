@@ -5,41 +5,44 @@ import java.awt.datatransfer.StringSelection;
 
 public class Gui extends JFrame {
     Cypher cypher = new Cypher("3591255939063529");
-    JLabel resultLabel;
+    JTextArea resultArea;
     String result;
     JTextField input;
-    JButton cipherButton, decipherButton, copyButton;
+    JButton cipherButton, decipherButton;
     StringSelection stringSelection;
     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     public Gui(){
-        resultLabel = new JLabel("Result: ");
         input = new JTextField(20);
         cipherButton = new JButton("Cipher");
         decipherButton = new JButton("Decipher");
-        copyButton = new JButton("Copy onto clipboard");
+        resultArea = new JTextArea(10, 30);
+        resultArea.setLineWrap(true);
+        resultArea.setWrapStyleWord(true);
         setTitle("Cipher-Decipher");
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.add(input);
-        panel.add(cipherButton);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(input);
+        buttonPanel.add(cipherButton);
         cipherButton.addActionListener(e->{
             result = cypher.encrypt(input.getText());
-            resultLabel.setText("Result: " + result);
+            resultArea.setText("Result: " + result);
             stringSelection = new StringSelection(result);
             clipboard.setContents(stringSelection, null);
         });
-        panel.add(decipherButton);
+        buttonPanel.add(decipherButton);
         decipherButton.addActionListener(e->{
             result = cypher.decrypt(input.getText());
-            resultLabel.setText("Result: " + result);
+            resultArea.setText("Result: " + result);
             stringSelection = new StringSelection(result);
             clipboard.setContents(stringSelection, null);
         });
-        panel.add(resultLabel);
-        add(panel);
+        JPanel resultPanel = new JPanel(new FlowLayout());
+        resultPanel.add(resultArea);
+        add(buttonPanel);
+        add(resultPanel);
         setVisible(true);
     }   
 }
