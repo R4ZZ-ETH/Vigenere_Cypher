@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
 
 public class Cypher {
-    private String key;
+    private final String key;
     public Cypher(String key){
         this.key = key; 
     }
