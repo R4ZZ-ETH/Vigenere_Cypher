@@ -19,7 +19,7 @@ public class Gui extends JFrame {
         input = new JTextField(20);
         cipherButton = new JButton("Cipher");
         decipherButton = new JButton("Decipher");
-        copyButton = new JButton("Copy Password onto clipboard");
+        copyButton = new JButton("Copy onto clipboard");
         setTitle("Cipher-Decipher");
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
