@@ -1,23 +1,31 @@
 import javax.swing.*;
-import java.awt.*;;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Gui extends JFrame {
     Cypher cypher = new Cypher("3591255939063529");
     JLabel resultLabel;
     String result;
     JTextField input;
-    JButton cipherButton, decipherButton;
+    JButton cipherButton, decipherButton, copyButton;
+    StringSelection stringSelection;
+    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     public Gui(){
         resultLabel = new JLabel("Result: ");
         input = new JTextField(20);
         cipherButton = new JButton("Cipher");
         decipherButton = new JButton("Decipher");
-        setTitle("Cypher-Decypher");
-        setSize(2000, 100);
+        copyButton = new JButton("Copy Password onto clipboard");
+        setTitle("Cipher-Decipher");
+        setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        JPanel panel = new JPanel(new GridLayout(1, 4, 4, 4));
+        JPanel panel = new JPanel(new FlowLayout());
         panel.add(input);
         panel.add(cipherButton);
         cipherButton.addActionListener(e->{
@@ -30,6 +38,12 @@ public class Gui extends JFrame {
             resultLabel.setText("Result: " + result);
         });
         panel.add(resultLabel);
+        panel.add(copyButton);
+        copyButton.addActionListener(e->{
+            String copyText = resultLabel.getText().substring(8, resultLabel.getText().length()); 
+            stringSelection = new StringSelection(copyText);
+            clipboard.setContents(stringSelection, null);
+        });
         add(panel);
         setVisible(true);
     }   
