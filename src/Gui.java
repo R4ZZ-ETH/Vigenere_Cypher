@@ -18,21 +18,24 @@ public class Gui extends JFrame {
         resultArea = new JTextArea(10, 30);
         resultArea.setLineWrap(true);
         resultArea.setWrapStyleWord(true);
+        resultArea.setEditable(false);
         setTitle("Cipher-Decipher");
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLocationRelativeTo(null); 
+        setLayout(new BorderLayout(10, 10));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(input);
-        buttonPanel.add(cipherButton);
+
+        JPanel topPanel = new JPanel(new FlowLayout());
+        topPanel.add(input);
+        topPanel.add(cipherButton);
         cipherButton.addActionListener(e->{
             result = cypher.encrypt(input.getText());
             resultArea.setText("Result: " + result);
             stringSelection = new StringSelection(result);
             clipboard.setContents(stringSelection, null);
         });
-        buttonPanel.add(decipherButton);
+        topPanel.add(decipherButton);
         decipherButton.addActionListener(e->{
             result = cypher.decrypt(input.getText());
             resultArea.setText("Result: " + result);
@@ -41,8 +44,8 @@ public class Gui extends JFrame {
         });
         JPanel resultPanel = new JPanel(new FlowLayout());
         resultPanel.add(resultArea);
-        add(buttonPanel);
-        add(resultPanel);
+        add(topPanel, BorderLayout.NORTH);
+        add(resultPanel, BorderLayout.CENTER);
         setVisible(true);
     }   
 }
