@@ -28,19 +28,17 @@ public class Gui extends JFrame {
         cipherButton.addActionListener(e->{
             result = cypher.encrypt(input.getText());
             resultLabel.setText("Result: " + result);
+            stringSelection = new StringSelection(result);
+            clipboard.setContents(stringSelection, null);
         });
         panel.add(decipherButton);
         decipherButton.addActionListener(e->{
             result = cypher.decrypt(input.getText());
             resultLabel.setText("Result: " + result);
-        });
-        panel.add(resultLabel);
-        panel.add(copyButton);
-        copyButton.addActionListener(e->{
-            String copyText = resultLabel.getText().substring(8, resultLabel.getText().length()); 
-            stringSelection = new StringSelection(copyText);
+            stringSelection = new StringSelection(result);
             clipboard.setContents(stringSelection, null);
         });
+        panel.add(resultLabel);
         add(panel);
         setVisible(true);
     }   
